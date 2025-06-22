@@ -1,7 +1,7 @@
-package com.example.blockopsbackendaplication.interfaces;
+package com.example.blockopsbackendaplication.notifications.interfaces;
 
-import com.example.blockopsbackendaplication.application.NotificationService;
-import com.example.blockopsbackendaplication.domain.Notification;
+import com.example.blockopsbackendaplication.notifications.application.NotificationService;
+import com.example.blockopsbackendaplication.notifications.domain.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

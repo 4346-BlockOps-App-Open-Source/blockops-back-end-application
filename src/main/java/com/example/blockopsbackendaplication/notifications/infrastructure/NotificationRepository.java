@@ -1,6 +1,6 @@
-package com.example.blockopsbackendaplication.infrastructure;
+package com.example.blockopsbackendaplication.notifications.infrastructure;
 
-import com.example.blockopsbackendaplication.domain.Notification;
+import com.example.blockopsbackendaplication.notifications.domain.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

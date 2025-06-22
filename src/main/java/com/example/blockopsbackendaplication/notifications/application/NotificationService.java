@@ -1,7 +1,7 @@
-package com.example.blockopsbackendaplication.application;
+package com.example.blockopsbackendaplication.notifications.application;
 
-import com.example.blockopsbackendaplication.domain.Notification;
-import com.example.blockopsbackendaplication.infrastructure.NotificationRepository;
+import com.example.blockopsbackendaplication.notifications.domain.Notification;
+import com.example.blockopsbackendaplication.notifications.infrastructure.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

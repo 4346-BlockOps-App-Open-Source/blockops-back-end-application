@@ -1,4 +1,4 @@
-package com.example.blockopsbackendaplication.domain;
+package com.example.blockopsbackendaplication.notifications.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

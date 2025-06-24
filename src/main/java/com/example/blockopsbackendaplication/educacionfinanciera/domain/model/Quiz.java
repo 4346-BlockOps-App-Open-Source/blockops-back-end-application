@@ -1,69 +1,31 @@
 package com.example.blockopsbackendaplication.educacionfinanciera.domain.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
-@Table(name = "quizzes")
+@Table(name = "quiz")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Quiz {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String pregunta;
+    private String texto;
+    private String correcta;
 
-    @ElementCollection
-    @CollectionTable(name = "quiz_opciones", joinColumns = @JoinColumn(name = "quiz_id"))
-    @Column(name = "opcion")
-    private List<String> opciones;
+    @Column(length = 1000)
+    private String recomendacion;
 
-    private String respuestaCorrecta;
+    private String imagen;
 
-    @Column(length = 3000)
-    private String explicacion;
-
-    public Quiz() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getPregunta() {
-        return pregunta;
-    }
-
-    public List<String> getOpciones() {
-        return opciones;
-    }
-
-    public String getRespuestaCorrecta() {
-        return respuestaCorrecta;
-    }
-
-    public String getExplicacion() {
-        return explicacion;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setPregunta(String pregunta) {
-        this.pregunta = pregunta;
-    }
-
-    public void setOpciones(List<String> opciones) {
-        this.opciones = opciones;
-    }
-
-    public void setRespuestaCorrecta(String respuestaCorrecta) {
-        this.respuestaCorrecta = respuestaCorrecta;
-    }
-
-    public void setExplicacion(String explicacion) {
-        this.explicacion = explicacion;
-    }
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<QuizOpcion> opciones;
 }

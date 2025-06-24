@@ -6,18 +6,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "consejo")
+@Table(name = "quiz_opciones")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Consejo {
+public class QuizOpcion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String titulo;
+    private String opcion;
 
-    @Column(columnDefinition = "TEXT")
-    private String descripcion;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "quiz_id")
+    private Quiz quiz;
 }

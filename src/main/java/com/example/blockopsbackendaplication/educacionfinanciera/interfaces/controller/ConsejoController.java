@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/consejos")
+@RequestMapping("/api/consejo")
 @Tag(name = "Consejo", description = "API para gestión de consejos financieros")
 public class ConsejoController {
 

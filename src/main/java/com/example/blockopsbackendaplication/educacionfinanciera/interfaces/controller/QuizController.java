@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/quizzes")
+@RequestMapping("/api/quiz")
 @Tag(name = "Quiz", description = "API para gestión de quizzes financieros")
 public class QuizController {
 
@@ -38,7 +38,7 @@ public class QuizController {
         return quizService.crear(request);
     }
 
-    @Operation(summary = "Actualizar un quiz")
+    @Operation(summary = "Actualizar un quiz existente")
     @PutMapping("/{id}")
     public QuizResponse actualizar(@PathVariable Long id, @RequestBody QuizRequest request) {
         return quizService.actualizar(id, request);

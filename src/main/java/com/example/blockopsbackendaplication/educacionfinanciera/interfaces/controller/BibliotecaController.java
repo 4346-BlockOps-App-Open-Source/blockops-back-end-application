@@ -6,8 +6,9 @@ import com.example.blockopsbackendaplication.educacionfinanciera.application.ser
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
-    
+
 import java.util.List;
+
 @RestController
 @RequestMapping("/api/biblioteca")
 @Tag(name = "Biblioteca", description = "API para recursos educativos financieros")
@@ -49,6 +50,3 @@ public class BibliotecaController {
         bibliotecaService.eliminar(id);
     }
 }
-
-
-

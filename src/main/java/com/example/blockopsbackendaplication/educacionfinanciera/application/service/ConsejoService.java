@@ -20,13 +20,13 @@ public class ConsejoService {
 
     public List<ConsejoResponse> obtenerTodo() {
         return repository.findAll().stream()
-                .map(c -> new ConsejoResponse(c.getId(), c.getTitulo(), c.getDescripcion()))
+                .map(this::toResponse)
                 .collect(Collectors.toList());
     }
 
     public ConsejoResponse obtenerPorId(Long id) {
         Consejo c = repository.findById(id).orElseThrow(() -> new RuntimeException("Consejo no encontrado"));
-        return new ConsejoResponse(c.getId(), c.getTitulo(), c.getDescripcion());
+        return toResponse(c);
     }
 
     public ConsejoResponse crear(ConsejoRequest request) {

@@ -1,33 +1,34 @@
 CREATE TABLE biblioteca (
-                            id BIGINT PRIMARY KEY,
-                            titulo VARCHAR(255),
+                            id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                            titulo VARCHAR(255) NOT NULL,
                             descripcion TEXT,
                             url TEXT
 );
 
+
 CREATE TABLE consejo (
-                         id BIGINT PRIMARY KEY,
-                         titulo VARCHAR(255),
+                         id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                         titulo VARCHAR(255) NOT NULL,
                          descripcion TEXT
 );
 
 CREATE TABLE microleccion (
-                              id BIGINT PRIMARY KEY,
-                              tema VARCHAR(255),
-                              contenido TEXT,
-                              nivel VARCHAR(50)
+                              id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                              tema VARCHAR(255) NOT NULL,
+                              descripcion TEXT,
+                              contenido TEXT
 );
-
 CREATE TABLE quiz (
-                      id BIGINT PRIMARY KEY,
-                      texto TEXT,
-                      correcta VARCHAR(255),
+                      id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                      texto VARCHAR(500) NOT NULL,
+                      correcta VARCHAR(255) NOT NULL,
                       recomendacion TEXT,
                       imagen TEXT
 );
 
 CREATE TABLE quiz_opciones (
-                               quiz_id BIGINT,
-                               opciones VARCHAR(255),
-                               FOREIGN KEY (quiz_id) REFERENCES quiz(id)
+                               id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                               quiz_id BIGINT NOT NULL,
+                               opcion VARCHAR(255) NOT NULL,
+                               FOREIGN KEY (quiz_id) REFERENCES quiz(id) ON DELETE CASCADE
 );

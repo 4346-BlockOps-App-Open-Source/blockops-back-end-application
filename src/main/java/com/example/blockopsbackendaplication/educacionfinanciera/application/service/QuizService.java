@@ -3,6 +3,7 @@ package com.example.blockopsbackendaplication.educacionfinanciera.application.se
 import com.example.blockopsbackendaplication.educacionfinanciera.application.dto.QuizRequest;
 import com.example.blockopsbackendaplication.educacionfinanciera.application.dto.QuizResponse;
 import com.example.blockopsbackendaplication.educacionfinanciera.domain.model.Quiz;
+import com.example.blockopsbackendaplication.educacionfinanciera.domain.model.QuizOpcion;
 import com.example.blockopsbackendaplication.educacionfinanciera.infrastructure.repository.QuizRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,25 +26,54 @@ public class QuizService {
     }
 
     public QuizResponse obtenerPorId(Long id) {
-        Quiz quiz = repository.findById(id).orElseThrow(() -> new RuntimeException("Quiz no encontrado"));
+        Quiz quiz = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Quiz no encontrado"));
         return toResponse(quiz);
     }
 
     public QuizResponse crear(QuizRequest request) {
         Quiz quiz = new Quiz();
-        quiz.setPregunta(request.getPregunta());
-        quiz.setOpciones(request.getOpciones());
-        quiz.setRespuestaCorrecta(request.getRespuestaCorrecta());
-        quiz.setExplicacion(request.getExplicacion());
+        quiz.setTexto(request.getTexto());
+        quiz.setCorrecta(request.getCorrecta());
+        quiz.setRecomendacion(request.getRecomendacion());
+        quiz.setImagen(request.getImagen());
+
+        // Crear opciones asociadas
+        List<QuizOpcion> opciones = request.getOpciones().stream()
+                .map(op -> {
+                    QuizOpcion opcion = new QuizOpcion();
+                    opcion.setOpcion(op);
+                    opcion.setQuiz(quiz); // establecer la relación bidireccional
+                    return opcion;
+                }).collect(Collectors.toList());
+
+        quiz.setOpciones(opciones);
+
         return toResponse(repository.save(quiz));
     }
 
     public QuizResponse actualizar(Long id, QuizRequest request) {
-        Quiz quiz = repository.findById(id).orElseThrow(() -> new RuntimeException("Quiz no encontrado"));
-        quiz.setPregunta(request.getPregunta());
-        quiz.setOpciones(request.getOpciones());
-        quiz.setRespuestaCorrecta(request.getRespuestaCorrecta());
-        quiz.setExplicacion(request.getExplicacion());
+        Quiz quiz = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Quiz no encontrado"));
+
+        quiz.setTexto(request.getTexto());
+        quiz.setCorrecta(request.getCorrecta());
+        quiz.setRecomendacion(request.getRecomendacion());
+        quiz.setImagen(request.getImagen());
+
+        // Limpiar y reemplazar las opciones
+        quiz.getOpciones().clear();
+
+        List<QuizOpcion> nuevasOpciones = request.getOpciones().stream()
+                .map(op -> {
+                    QuizOpcion opcion = new QuizOpcion();
+                    opcion.setOpcion(op);
+                    opcion.setQuiz(quiz);
+                    return opcion;
+                }).collect(Collectors.toList());
+
+        quiz.getOpciones().addAll(nuevasOpciones);
+
         return toResponse(repository.save(quiz));
     }
 
@@ -55,12 +85,17 @@ public class QuizService {
     }
 
     private QuizResponse toResponse(Quiz q) {
+        List<String> opciones = q.getOpciones().stream()
+                .map(QuizOpcion::getOpcion)
+                .collect(Collectors.toList());
+
         return new QuizResponse(
                 q.getId(),
-                q.getPregunta(),
-                q.getOpciones(),
-                q.getRespuestaCorrecta(),
-                q.getExplicacion()
+                q.getTexto(),
+                opciones,
+                q.getCorrecta(),
+                q.getRecomendacion(),
+                q.getImagen()
         );
     }
 }

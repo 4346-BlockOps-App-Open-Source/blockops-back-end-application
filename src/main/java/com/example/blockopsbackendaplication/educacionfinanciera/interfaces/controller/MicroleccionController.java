@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/microlecciones")
+@RequestMapping("/api/microleccion")
 @Tag(name = "Microlección", description = "API para gestión de microlecciones")
 public class MicroleccionController {
 

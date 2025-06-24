@@ -1,30 +1,15 @@
 package com.example.blockopsbackendaplication.educacionfinanciera.application.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ConsejoRequest {
     private String titulo;
     private String descripcion;
-
-    public ConsejoRequest() {
-    }
-
-    public ConsejoRequest(String titulo, String descripcion) {
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 }

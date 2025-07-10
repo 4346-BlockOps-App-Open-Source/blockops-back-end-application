@@ -1,0 +1,31 @@
+package com.example.blockopsbackendaplication.crypto.controller;
+
+import com.example.blockopsbackendaplication.crypto.model.Signal;
+import com.example.blockopsbackendaplication.crypto.service.SignalService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/signals")
+public class SignalController {
+
+    private final SignalService service;
+
+    public SignalController(SignalService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<Signal> getSignals() {
+        return service.getAllSignals();
+    }
+
+    @PostMapping
+    public Signal createSignal(@RequestParam String cryptoName,
+                               @RequestParam double newPrice,
+                               @RequestParam double oldPrice) {
+        return service.createSignal(cryptoName, newPrice, oldPrice);
+    }
+}

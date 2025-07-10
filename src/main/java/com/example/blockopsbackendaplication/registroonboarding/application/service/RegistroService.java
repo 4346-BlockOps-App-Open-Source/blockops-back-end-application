@@ -6,34 +6,35 @@ import com.example.blockopsbackendaplication.registroonboarding.domain.model.Usu
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import com.example.blockopsbackendaplication.registroonboarding.infrastructure.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class RegistroService {
 
-    // Simulación de almacenamiento en memoria
-    private List<Usuario> usuarios = new ArrayList<>();
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     public UsuarioResponse registrarUsuario(RegistroRequest request) {
-        // Crear entidad de dominio a partir del DTO
         Usuario usuario = new Usuario(
             request.getNombre(),
             request.getCorreo(),
             request.getPerfilRiesgo(),
             request.getPreferencia()
         );
-        usuarios.add(usuario);
+        Usuario guardado = usuarioRepository.save(usuario);
 
-        // Mapear la entidad a DTO de respuesta
         UsuarioResponse response = new UsuarioResponse();
-        response.setNombre(usuario.getNombre());
-        response.setCorreo(usuario.getCorreo());
-        response.setPerfilRiesgo(usuario.getPerfilRiesgo());
-        response.setPreferencia(usuario.getPreferencia());
+        response.setNombre(guardado.getNombre());
+        response.setCorreo(guardado.getCorreo());
+        response.setPerfilRiesgo(guardado.getPerfilRiesgo());
+        response.setPreferencia(guardado.getPreferencia());
         return response;
     }
 
     public List<UsuarioResponse> obtenerUsuarios() {
         List<UsuarioResponse> responses = new ArrayList<>();
+        List<Usuario> usuarios = usuarioRepository.findAll();
         for (Usuario usuario : usuarios) {
             UsuarioResponse response = new UsuarioResponse();
             response.setNombre(usuario.getNombre());
@@ -47,6 +48,7 @@ public class RegistroService {
 
     public List<UsuarioResponse> buscarUsuarios(String nombre, String correo, String perfilRiesgo, String preferencia) {
         List<UsuarioResponse> responses = new ArrayList<>();
+        List<Usuario> usuarios = usuarioRepository.findAll();
         for (Usuario usuario : usuarios) {
             boolean match = (nombre == null || usuario.getNombre().equalsIgnoreCase(nombre))
                 && (correo == null || usuario.getCorreo().equalsIgnoreCase(correo))

@@ -8,7 +8,6 @@ COPY .mvn .mvn
 COPY mvnw pom.xml ./
 RUN chmod +x mvnw
 COPY src src
-
 RUN ./mvnw clean package -DskipTests
 
 # En la imagen final solo copiamos el jar generado

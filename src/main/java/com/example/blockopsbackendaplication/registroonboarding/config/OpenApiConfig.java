@@ -13,9 +13,14 @@ public class OpenApiConfig {
 
     @Bean
     public OpenAPI customOpenAPI() {
-        Server server = new Server();
-        server.setUrl("https://blockops-back-end-application-production.up.railway.app");
-        server.setDescription("Railway Production Server");
-        return new OpenAPI().servers(List.of(server));
+        Server local = new Server();
+        local.setUrl("http://localhost:8080");
+        local.setDescription("Localhost");
+
+        Server railway = new Server();
+        railway.setUrl("https://blockops-back-end-application-production.up.railway.app");
+        railway.setDescription("Railway Production");
+
+        return new OpenAPI().servers(List.of(local, railway));
     }
 }

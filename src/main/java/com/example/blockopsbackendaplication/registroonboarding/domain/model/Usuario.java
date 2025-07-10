@@ -1,10 +1,21 @@
 package com.example.blockopsbackendaplication.registroonboarding.domain.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "usuarios")
 public class Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nombre;
     private String correo;
     private PerfilRiesgoEnum perfilRiesgo;
     private PreferenciaEnum preferencia;
+
+    // Constructor vacío requerido por JPA
+    public Usuario() {
+    }
 
     // Constructor
     public Usuario(String nombre, String correo, PerfilRiesgoEnum perfilRiesgo, PreferenciaEnum preferencia) {
@@ -15,6 +26,12 @@ public class Usuario {
     }
 
     // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getNombre() {
         return nombre;
     }

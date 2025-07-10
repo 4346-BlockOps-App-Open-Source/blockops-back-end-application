@@ -11,7 +11,7 @@ public class CORSConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         // CONFIGURACIÓN TEMPORAL PARA PRUEBAS: permite cualquier origen. No usar en producción.
         registry.addMapping("/**")
-            .allowedOrigins("*") // Cambiar "*" por urls específicas antes de subir a producción
+            .allowedOriginPatterns("*") // Cambiar "*" por patrones/urls específicas antes de subir a producción
             .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
             .allowedHeaders("*")
             .allowCredentials(true);

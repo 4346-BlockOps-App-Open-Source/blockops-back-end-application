@@ -7,6 +7,7 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +39,8 @@ public class OpenApiConfiguration {
                                 .url("https://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()
                         .description("Tallerazo API Documentation")
-                        .url("https://tallerazo.wiki.github.io/docs"));
+                        .url("https://tallerazo.wiki.github.io/docs"))
+                .addServersItem(new Server().url("https://blockops-back-end-application-production.up.railway.app"));
 
         // Add a security scheme
 

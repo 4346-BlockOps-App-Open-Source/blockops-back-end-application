@@ -5,7 +5,15 @@ import com.example.blockopsbackendaplication.iam.interfaces.rest.resources.SignU
 
 public class SignUpCommandFromResourceAssembler {
     public static SignUpCommand toCommandFromResource(SignUpResource resource) {
-        return new SignUpCommand(resource.username(), resource.firstName(),resource.lastName(), resource.email(), resource.password());
+        return new SignUpCommand(
+            resource.username(),
+            resource.firstName(),
+            resource.lastName(),
+            resource.email(),
+            resource.password(),
+            resource.perfilRiesgo(),
+            resource.preferencias()
+        );
     }
 
 }

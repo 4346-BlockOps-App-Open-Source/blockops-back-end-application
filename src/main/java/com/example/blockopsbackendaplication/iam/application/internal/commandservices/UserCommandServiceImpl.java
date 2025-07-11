@@ -74,7 +74,19 @@ public class UserCommandServiceImpl implements UserCommandService {
         var email= new EmailAddress(command.email());
         if (userRepository.existsByUsername(command.username())||userRepository.existsByEmailAddress(email))
             throw new RuntimeException("Username already exists or email alredy exist");
-        var user = new User(command.username(), command.firstName(),command.lastName(),command.email(),hashingService.encode(command.password()));
+        if (command.perfilRiesgo() == null || command.preferencias() == null) {
+            throw new RuntimeException("Faltan campos de perfil de riesgo o preferencias.");
+        }
+        // Validar valores válidos
+        var perfilesValidos = java.util.List.of("Conservador","Moderado","Agresivo");
+        var preferenciasValidas = java.util.List.of("Cripto","Acciones","Bonos","Forex");
+        if (!perfilesValidos.contains(command.perfilRiesgo())) {
+            throw new RuntimeException("Perfil de riesgo inválido. Solo: Conservador, Moderado, Agresivo");
+        }
+        if (!preferenciasValidas.contains(command.preferencias())) {
+            throw new RuntimeException("Preferencia inválida. Solo: Cripto, Acciones, Bonos, Forex");
+        }
+        var user = new User(command.username(), command.firstName(), command.lastName(), command.email(), hashingService.encode(command.password()), command.perfilRiesgo(), command.preferencias());
         userRepository.save(user);
         return userRepository.findByUsername(command.username());
     }

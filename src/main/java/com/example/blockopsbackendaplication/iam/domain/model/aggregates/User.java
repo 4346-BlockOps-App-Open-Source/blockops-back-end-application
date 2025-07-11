@@ -32,12 +32,21 @@ public class User extends AuditableAbstractAggregateRoot<User> {
         return  emailAddress.value();
     }
     public User(){}
-    public User(String username,String firstName, String lastName, String emailAddress, String password) {
-        this.personName=new PersonName(firstName,lastName);
-        this.emailAddress= new EmailAddress(emailAddress);
-        this.password= new Password(password);
-        this.username=username;
+    private String perfilRiesgo;
+    private String preferencias;
 
+    public User(String username, String firstName, String lastName, String emailAddress, String password, String perfilRiesgo, String preferencias) {
+        this.personName = new PersonName(firstName, lastName);
+        this.emailAddress = new EmailAddress(emailAddress);
+        this.password = new Password(password);
+        this.username = username;
+        this.perfilRiesgo = perfilRiesgo;
+        this.preferencias = preferencias;
+    }
+
+    // Constructor anterior para compatibilidad temporal
+    public User(String username, String firstName, String lastName, String emailAddress, String password) {
+        this(username, firstName, lastName, emailAddress, password, null, null);
     }
 
 

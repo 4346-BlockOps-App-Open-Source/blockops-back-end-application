@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/api/v1/authentication", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -71,7 +72,7 @@ public class AuthenticationController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "User created successfully."),
             @ApiResponse(responseCode = "400", description = "Bad request.")})
-    public ResponseEntity<UserResource> signUp(@RequestBody SignUpResource signUpResource) {
+    public ResponseEntity<UserResource> signUp(@Valid @RequestBody SignUpResource signUpResource) {
         // Procede con el registro sin validar nada, siempre responde 201 (CREATED)
         var signUpCommand = SignUpCommandFromResourceAssembler.toCommandFromResource(signUpResource);
         var user = userCommandService.handle(signUpCommand);

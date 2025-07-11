@@ -78,7 +78,7 @@ public class AuthenticationController {
         var user = userCommandService.handle(signUpCommand);
         var userResource = user.isPresent()
             ? UserResourceFromEntityAssembler.toResourceFromEntity(user.get())
-            : new UserResource(); // Devuelve uno vacío si no hay usuario creado
+            : new UserResource(null, null); // Devuelve uno vacío si no hay usuario creado
         return new ResponseEntity<>(userResource, HttpStatus.CREATED);
     }
 }

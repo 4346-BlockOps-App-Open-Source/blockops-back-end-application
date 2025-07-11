@@ -95,16 +95,7 @@ public class WebSecurityConfiguration {
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedRequestHandler))
                 .sessionManagement( customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/v1/authentication/sign-up").permitAll()
-                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/v1/authentication/test-public").permitAll()
-                        .requestMatchers(
-                                "/v3/api-docs/**",
-                                "/swagger-ui.html",
-                                "/swagger-ui/**",
-                                "/swagger-resources/**",
-                                "/webjars/**").permitAll()
-                        .requestMatchers("/api/v1/authentication/**").authenticated()
-                        .anyRequest().authenticated());
+                        .anyRequest().permitAll());
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authorizationRequestFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();

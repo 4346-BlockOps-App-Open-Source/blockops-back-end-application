@@ -38,6 +38,7 @@ public class BearerAuthorizationRequestFilter extends OncePerRequestFilter {
      */
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
+        System.out.println("BearerAuthorizationRequestFilter ejecutado, path: " + request.getServletPath());
         String path = request.getServletPath();
         if (path.equals("/api/v1/authentication/sign-up")) {
             filterChain.doFilter(request, response);

@@ -73,6 +73,7 @@ public class AuthenticationController {
             @ApiResponse(responseCode = "201", description = "User created successfully."),
             @ApiResponse(responseCode = "400", description = "Bad request.")})
     public ResponseEntity<UserResource> signUp(@Valid @RequestBody SignUpResource signUpResource) {
+        System.out.println("Entrando al endpoint /sign-up");
         // Procede con el registro sin validar nada, siempre responde 201 (CREATED)
         var signUpCommand = SignUpCommandFromResourceAssembler.toCommandFromResource(signUpResource);
         var user = userCommandService.handle(signUpCommand);
@@ -80,5 +81,10 @@ public class AuthenticationController {
             ? UserResourceFromEntityAssembler.toResourceFromEntity(user.get())
             : new UserResource(null, null); // Devuelve uno vacío si no hay usuario creado
         return new ResponseEntity<>(userResource, HttpStatus.CREATED);
+    }
+    @PostMapping("/test-public")
+    public String testPublic() {
+        System.out.println("Test público alcanzado");
+        return "OK";
     }
 }
